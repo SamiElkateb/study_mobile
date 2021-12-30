@@ -11,8 +11,8 @@ const CardStack: React.FC = (props) => {
 	const studyDeck = studyCtx.studyDeck;
 	return (
 		<View style={styles.container}>
-			{studyDeck.map((studyCard) => (
-				<StudyCard key={studyCard.id} studyCard={studyCard} />
+			{studyDeck.map((studyCard, index) => (
+				<StudyCard key={studyCard.id} studyCard={studyCard} index={index} />
 			))}
 		</View>
 	);

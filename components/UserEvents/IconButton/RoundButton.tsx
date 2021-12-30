@@ -7,70 +7,82 @@ import {
 	StyleSheet,
 } from 'react-native';
 
+import { AntDesign } from '@expo/vector-icons';
 import Colors from '../../../constants/Colors';
 import { toggleButton } from '../../../types';
+import { iconSizes } from '../../../constants/Size';
 
 interface props {
 	onClick?: (event: GestureResponderEvent) => void;
+	icon: 'close' | 'question' | 'check';
 	disabled?: boolean;
-	styling?: 'correct' | 'error' | 'secondary';
-	style?: {};
+	styling?: 'primary' | 'secondary';
+	color?: 'correct' | 'error' | 'default';
 	size?: 'large' | 'med' | 'small';
 	buttonHook?: toggleButton;
 }
 
 const RoundButton: React.FC<props> = (props) => {
 	const {
-		children,
 		onClick,
 		disabled = false,
-		styling = 'correct',
-		style = {},
+		styling = 'primary',
+		color = 'default',
+		icon,
 		size = 'med',
-		buttonHook = { isActive: false, toggleHandler: () => {} },
+		buttonHook = {
+			isActive: false,
+			toggleButtonHandler: () => {},
+			isSwipeActive: false,
+			isButtonActive: false,
+		},
 	} = props;
 
-	const backgroundAnim = useRef(new Animated.Value(0)).current;
-
-	const { isActive,toggleHandler } = buttonHook;
-
-	const backgroundInterpolation = backgroundAnim.interpolate({
-		inputRange: [0, 1],
-		outputRange: ['rgb(255,255,255)', Colors[styling]],
-	});
-
-	let colors = styles.primary;
-	styling === 'secondary' && (colors = styles.secondary);
-	styling === 'error' && (colors = styles.danger);
-	disabled && (colors = styles.disabled);
-
-	const onPressInHandler = () => {
-		toggleHandler(true)
-		Animated.spring(backgroundAnim, {
-			toValue: 1,
-			useNativeDriver: false,
-		}).start(({ finished }) => {
-			!finished && backgroundAnim.setValue(1)
-		});
-	};
-	const onPressOutHandler = () => {
-		toggleHandler(false)
-		Animated.spring(backgroundAnim, {
-			toValue: 0,
-			useNativeDriver: false,
-		}).start(({ finished }) => {
-			!finished && backgroundAnim.setValue(0)
-		});
-	};
+	
+	const { isActive, isSwipeActive, toggleButtonHandler } = buttonHook;
 
 	useEffect(() => {
-		isActive && onPressInHandler();
-		!isActive && onPressOutHandler();
-	}, [isActive]);
+		isSwipeActive && startBtnFocusAnimation();
+		!isSwipeActive && startBtnBlurAnimation();
+	}, [isSwipeActive]);
 
-	const animatedStyle = {
-		backgroundColor: backgroundInterpolation,
+	const animatedRef = useRef(new Animated.Value(0)).current;
+
+	const isSecondaryBtn = styling === 'secondary';
+	const secondaryColor = isSecondaryBtn ? Colors[color] : 'rgb(255,255,255)';
+	const mainColor = isSecondaryBtn ? 'rgb(255,255,255)' : Colors[color];
+
+	const backgroundColor = animatedRef.interpolate({
+		inputRange: [0, 1],
+		outputRange: [secondaryColor, mainColor],
+	});
+
+	const iconColor = isActive ? secondaryColor : mainColor;
+
+	const colors = disabled ? styles.disabled : styles[color];
+
+	const startBtnFocusAnimation = () => {
+		Animated.spring(animatedRef, {
+			toValue: 1,
+			useNativeDriver: false,
+		}).start();
 	};
+	const startBtnBlurAnimation = () => {
+		Animated.spring(animatedRef, {
+			toValue: 0,
+			useNativeDriver: false,
+		}).start();
+	};
+
+	const onPressInHandler = () => {
+		toggleButtonHandler(true);
+		startBtnFocusAnimation();
+	};
+	const onPressOutHandler = () => {
+		toggleButtonHandler(false);
+		startBtnBlurAnimation();
+	};
+
 	return (
 		<Pressable
 			onPressIn={onPressInHandler}
@@ -80,15 +92,13 @@ const RoundButton: React.FC<props> = (props) => {
 			hitSlop={50}
 		>
 			<Animated.View
-				style={[
-					styles.button,
-					colors,
-					style,
-					styles[size],
-					animatedStyle,
-				]}
+				style={[styles.button, colors, styles[size], {backgroundColor}]}
 			>
-				{children}
+				<AntDesign
+					name={icon}
+					size={iconSizes[size]}
+					color={iconColor}
+				/>
 			</Animated.View>
 		</Pressable>
 	);
@@ -98,14 +108,9 @@ export default RoundButton;
 
 const styles = StyleSheet.create({
 	button: {
-		fontSize: 20,
-		fontWeight: 'bold',
-		textAlign: 'center',
-		overflow: 'hidden',
 		justifyContent: 'center',
 		alignItems: 'center',
 	},
-
 	large: {
 		height: 92,
 		width: 92,
@@ -121,21 +126,17 @@ const styles = StyleSheet.create({
 		width: 52,
 		borderRadius: 26,
 	},
-	primary: {
-		borderColor: '#81d477',
-		color: '#81d477',
+	correct: {
+		borderColor: Colors.correct,
 		borderWidth: 2,
 	},
-	danger: {
-		borderColor: '#CE5B5B',
-		color: '#CE5B5B',
+	error: {
+		borderColor: Colors.error,
 		borderWidth: 2,
 	},
-	secondary: {
-		borderColor: '#434bae',
+	default: {
+		borderColor: Colors.default,
 		borderWidth: 2,
-		backgroundColor: '#434bae',
-		color: 'black',
 	},
 	disabled: {
 		borderColor: 'transparent',

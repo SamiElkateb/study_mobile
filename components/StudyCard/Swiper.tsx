@@ -1,23 +1,41 @@
 /** @format */
 
-import React from 'react';
+import React, { useContext } from 'react';
 import { Animated, View, StyleSheet } from 'react-native';
 import StudyCard from '../../DataStructures/StudyCard';
 import useSwipe from '../../hooks/useSwipe';
+import StudyContext from '../../store/StudyContext';
 import { toggleButton } from '../../types';
 
 interface props {
 	studyCard: StudyCard;
 	falseButtonHook: toggleButton;
 	correctButtonHook: toggleButton;
+	showAnswerButtonHook: toggleButton;
+    index:number
 }
 
 const Swiper: React.FC<props> = (props) => {
-	const { children, studyCard, falseButtonHook, correctButtonHook } = props;
-	const { rotateZ, pointerEvent, translateX, translateY, panResponder } =
-		useSwipe({ studyCard, falseButtonHook, correctButtonHook });
+	const {
+		children,
+		studyCard,
+		falseButtonHook,
+		correctButtonHook,
+		showAnswerButtonHook,
+        index
+	} = props;
+	const { transform, pointerEvent, panResponder } = useSwipe({
+		studyCard,
+		falseButtonHook,
+		correctButtonHook,
+	});
 
-	const transform = [{ translateX }, { translateY }, { rotateZ }];
+    const studyCtx = useContext(StudyContext);
+    const zIndex = {zIndex :studyCtx.studyDeck.length -index }
+	const shouldDeactivateSwipe =
+		falseButtonHook.isButtonActive ||
+		correctButtonHook.isButtonActive ||
+		showAnswerButtonHook.isButtonActive;
 
 	const animatedStyle = [
 		{
@@ -26,9 +44,11 @@ const Swiper: React.FC<props> = (props) => {
 		styles.container,
 		StyleSheet.absoluteFill,
 	];
+	const panGestures = shouldDeactivateSwipe ? null : panResponder.panHandlers;
+
 	return (
-		<View style={StyleSheet.absoluteFill} pointerEvents={pointerEvent}>
-			<Animated.View style={animatedStyle} {...panResponder.panHandlers}>
+		<View style={[StyleSheet.absoluteFill, zIndex]} pointerEvents={pointerEvent}>
+			<Animated.View style={animatedStyle} {...panGestures}>
 				{children}
 			</Animated.View>
 		</View>

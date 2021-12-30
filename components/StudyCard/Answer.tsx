@@ -8,18 +8,28 @@ import { answerType } from '../../types';
 interface props {
 	answer: string;
 	answerType: answerType;
+	isVisible?: boolean;
 }
 
 const Answer: React.FC<props> = (props) => {
-	const { answer, answerType } = props;
+	const { answer, answerType, isVisible = true } = props;
+	if(!isVisible) return null
 	return (
-		<>
+		<View style={styles.answer_container}>
 			{answerType === 'text' && <Text>{answer}</Text>}
 			{answerType === 'terminal' && <Terminal code={answer} />}
 			{answerType === 'javascript' && <Javascript code={answer} />}
 			{answerType === 'yaml' && <Yaml code={answer} />}
-		</>
+		</View>
 	);
 };
 
 export default Answer;
+
+const styles = StyleSheet.create({
+	answer_container: {
+		margin: 10,
+		borderRadius: 12,
+		overflow: 'hidden',
+	},
+});

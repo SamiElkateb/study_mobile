@@ -16,5 +16,8 @@ export type answerType = 'text' | 'javascript' | 'terminal' | 'yaml'
 
 export interface toggleButton {
 	isActive: boolean;
-	toggleHandler : (override?:boolean)=>void;
+	isButtonActive: boolean;
+	isSwipeActive: boolean;
+	toggleButtonHandler : (override?:boolean)=>void;
+	toggleSwipeHandler : (override?:boolean)=>void;
 }

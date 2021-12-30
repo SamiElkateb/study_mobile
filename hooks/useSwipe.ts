@@ -13,17 +13,17 @@ interface props {
 	correctButtonHook: toggleButton;
 }
 
+
 const useSwipe = (props: props) => {
 	const { studyCard, falseButtonHook, correctButtonHook } = props;
-	const pan = useRef(new Animated.ValueXY()).current;
+	const pan:any = useRef(new Animated.ValueXY()).current;
 	const [pointerEvent, setPointerEvent] = useState<PointerEvent>('auto');
 
 	const studyCtx = useContext(StudyContext);
 	const onCorrect = studyCtx.cardCorrectHandler;
 
-	const { toggleHandler: correctBtnToggleHandler } = correctButtonHook;
-
-	const { toggleHandler: falseBtnToggleHandler } = falseButtonHook;
+	const { toggleSwipeHandler: correctBtnToggleHandler } = correctButtonHook;
+	const { toggleSwipeHandler: falseBtnToggleHandler } = falseButtonHook;
 
 	const width = Dimensions.get('window').width;
 
@@ -32,17 +32,15 @@ const useSwipe = (props: props) => {
 			onMoveShouldSetPanResponder: () => true,
 			onPanResponderGrant: () => {
 				pan.setOffset({
-					//@ts-ignore
-					x: pan.x._value, //@ts-ignore
+					x: pan.x._value, 
 					y: pan.y._value,
 				});
 			},
 			onPanResponderMove: (e, gestureState) => {
-				//@ts-ignore
-				if (pan.x._value > 0) {
+				if (pan.x._value > 30) {
 					correctBtnToggleHandler(true);
 					falseBtnToggleHandler(false);
-				} else {
+				} else if (pan.x._value < -30) {
 					falseBtnToggleHandler(true);
 					correctBtnToggleHandler(false);
 				}
@@ -51,12 +49,11 @@ const useSwipe = (props: props) => {
 				})(e, gestureState);
 			},
 			onPanResponderRelease: () => {
-				//@ts-ignore
-				if (pan.x._value < -width / 3 || pan.x._value > width / 3) {
+				if (pan.x._value < -40 || pan.x._value > 40) {
+					const direction = pan.x._value > 0 ? 1 : -1;
 					Animated.spring(pan, {
 						toValue: {
-							//@ts-ignore
-							x: pan.x._value * 4, //@ts-ignore
+							x: direction*width*1.5,
 							y: pan.y._value * 4,
 						},
 						useNativeDriver: false,
@@ -84,7 +81,9 @@ const useSwipe = (props: props) => {
 	const translateX = pan.x;
 	const translateY = pan.y;
 
-	return { rotateZ, pointerEvent, translateX, translateY, panResponder };
+  const transform = [{ translateX }, { translateY }, { rotateZ }];
+
+	return { transform, pointerEvent, panResponder };
 };
 
 export default useSwipe;

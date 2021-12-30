@@ -10,7 +10,7 @@ interface props {
 const Terminal: React.FC<props> = (props) => {
 	const { code } = props;
 	let parsedCode = codeParser(code, 'terminal')
-    console.log(parsedCode)
+
 	return (
 		<View style={styles.terminal}>
 			<View style={styles.title}>

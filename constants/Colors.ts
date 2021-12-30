@@ -22,5 +22,5 @@ export default {
   },
   correct:'rgb(129, 212, 119)',
   error:'rgb(206,91,91)',
-  secondary:'rgb(67,75,174)'
+  default:'rgb(67,75,174)'
 };
