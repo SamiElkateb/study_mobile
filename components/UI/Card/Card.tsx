@@ -7,7 +7,7 @@ interface props {
 
 const Card: React.FC<props> = (props) => {
 	const { children, index = 0 } = props;
-    const shadowOpacity = index>1 ? 0 : 0.15
+    const shadowOpacity = 0.06-index*0.006
 	const shadow = {
 		shadowOpacity
 	};
