@@ -1,35 +1,20 @@
-/**
- * Learn more about using TypeScript with React Navigation:
- * https://reactnavigation.org/docs/typescript/
- */
+/** @format */
 
-import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
-import { CompositeScreenProps, NavigatorScreenParams } from '@react-navigation/native';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
+export type javascriptCodeType =
+	| 'function'
+	| 'string'
+	| 'statement'
+	| 'declaration'
+	| 'comment'
+	| 'linebreak'
+	| 'variable';
 
-declare global {
-  namespace ReactNavigation {
-    interface RootParamList extends RootStackParamList {}
-  }
+export type yamlCodeType = 'string' | 'object' | 'variable' | 'tab' | 'linebreak';
+export type indexAndLengthArray = { index: number; length: number }[];
+
+export type answerType = 'text' | 'javascript' | 'terminal' | 'yaml'
+
+export interface toggleButton {
+	isActive: boolean;
+	toggleHandler : (override?:boolean)=>void;
 }
-
-export type RootStackParamList = {
-  Root: NavigatorScreenParams<RootTabParamList> | undefined;
-  Modal: undefined;
-  NotFound: undefined;
-};
-
-export type RootStackScreenProps<Screen extends keyof RootStackParamList> = NativeStackScreenProps<
-  RootStackParamList,
-  Screen
->;
-
-export type RootTabParamList = {
-  TabOne: undefined;
-  TabTwo: undefined;
-};
-
-export type RootTabScreenProps<Screen extends keyof RootTabParamList> = CompositeScreenProps<
-  BottomTabScreenProps<RootTabParamList, Screen>,
-  NativeStackScreenProps<RootStackParamList>
->;

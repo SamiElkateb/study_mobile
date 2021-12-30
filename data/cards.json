@@ -1,0 +1,23 @@
+[
+	{
+		"question": "How to see all docker networks?",
+		"answer": "docker network ls",
+		"answerType": "terminal",
+		"streak": 0,
+        "id":0
+	},
+	{
+		"question": "What variables can be set for array reduce?",
+		"answer": "array.reduce((previousValue, currentValue, currentIndex, array) => {  /* ... */  }, initialValue)",
+		"answerType": "javascript",
+		"streak": 0,
+        "id":1
+	},
+	{
+		"question": "What's on the first line of a docker-compose file?",
+		"answer": "version: '3.8'",
+		"answerType": "yaml",
+		"streak": 0,
+        "id":2
+	}
+]

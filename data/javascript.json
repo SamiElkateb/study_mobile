@@ -1,0 +1,6 @@
+[
+	{
+		"key": 3,
+		"code": "array.reduce((previousValue, currentValue, currentIndex, array) => {  /* ... */  }, initialValue)"
+	}
+]
