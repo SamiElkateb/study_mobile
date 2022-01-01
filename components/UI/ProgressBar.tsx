@@ -2,7 +2,7 @@
 
 import { useRef } from 'react';
 import { Animated, StyleSheet, View } from 'react-native';
-import Colors from '../../../constants/Colors';
+import Colors from '../../constants/Colors';
 
 interface props {
 	progress?: number;

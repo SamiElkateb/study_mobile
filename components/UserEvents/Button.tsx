@@ -1,7 +1,7 @@
 /** @format */
 import { GestureResponderEvent, StyleSheet } from 'react-native';
 import { TouchableOpacity, Text } from 'react-native';
-import Colors from '../../../constants/Colors';
+import Colors from '../../constants/Colors';
 
 interface props {
 	onClick?: (event: GestureResponderEvent) => void;

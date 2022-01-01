@@ -3,7 +3,7 @@
 import { useNavigation } from '@react-navigation/native';
 import { useContext } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
-import Button from '../components/UserEvents/Button/Button';
+import Button from '../components/UserEvents/Button';
 import StudyContext from '../store/StudyContext';
 interface props {}
 const DailyCards: React.FC<props> = (props) => {

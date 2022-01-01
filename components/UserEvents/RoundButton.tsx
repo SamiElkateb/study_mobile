@@ -7,9 +7,9 @@ import {
 	StyleSheet,
 } from 'react-native';
 
-import Colors from '../../../constants/Colors';
-import { toggleButton } from '../../../types';
-import Icon from '../../UI/Icon';
+import Colors from '../../constants/Colors';
+import { toggleButton } from '../../types';
+import Icon from '../UI/Icon';
 
 interface props {
 	onClick?: (event: GestureResponderEvent) => void;

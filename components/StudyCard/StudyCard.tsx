@@ -2,8 +2,8 @@
 import { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import Answer from './Answer';
-import RoundButton from '../UserEvents/IconButton/RoundButton';
-import Card from '../UI/Card/Card';
+import RoundButton from '../UserEvents/RoundButton';
+import Card from '../UI/Card';
 import Swiper from './Swiper';
 import StudyCardData from '../../DataStructures/StudyCard';
 import useLinkSwipeBtn from '../../hooks/useLinkSwipeBtn';

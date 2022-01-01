@@ -5,7 +5,7 @@ import { View, StyleSheet, Text } from 'react-native';
 import StudyCard from '../components/StudyCard/StudyCard';
 import { useContext } from 'react';
 import StudyContext, { StudyContextProvider } from '../store/StudyContext';
-import ProgressBar from '../components/UI/ProgressBar/ProgressBar';
+import ProgressBar from '../components/UI/ProgressBar';
 
 const CardStack: React.FC = (props) => {
 	const studyCtx = useContext(StudyContext);
