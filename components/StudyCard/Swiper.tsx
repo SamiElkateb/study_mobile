@@ -57,8 +57,8 @@ const Swiper: React.FC<props> = (props) => {
 
 const styles = StyleSheet.create({
 	container: {
-		paddingVertical: 28,
-		paddingHorizontal: 16,
+		paddingVertical: 36,
+		paddingHorizontal: 20,
 	},
 });
 

@@ -7,10 +7,9 @@ import {
 	StyleSheet,
 } from 'react-native';
 
-import { AntDesign } from '@expo/vector-icons';
 import Colors from '../../../constants/Colors';
 import { toggleButton } from '../../../types';
-import { iconSizes } from '../../../constants/Size';
+import Icon from '../../UI/Icon';
 
 interface props {
 	onClick?: (event: GestureResponderEvent) => void;
@@ -38,7 +37,6 @@ const RoundButton: React.FC<props> = (props) => {
 		},
 	} = props;
 
-	
 	const { isActive, isSwipeActive, toggleButtonHandler } = buttonHook;
 
 	useEffect(() => {
@@ -92,13 +90,14 @@ const RoundButton: React.FC<props> = (props) => {
 			hitSlop={50}
 		>
 			<Animated.View
-				style={[styles.button, colors, styles[size], {backgroundColor}]}
+				style={[
+					styles.button,
+					colors,
+					styles[size],
+					{ backgroundColor },
+				]}
 			>
-				<AntDesign
-					name={icon}
-					size={iconSizes[size]}
-					color={iconColor}
-				/>
+				<Icon name={icon} size={size} color={iconColor} />
 			</Animated.View>
 		</Pressable>
 	);

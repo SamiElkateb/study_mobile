@@ -1,18 +1,10 @@
 /** @format */
 
-import { View, StyleSheet, ScrollView } from 'react-native';
-import { StudyContextProvider } from '../store/StudyContext';
-import CardStack from './CardStack';
+import { View, StyleSheet } from 'react-native';
 
 interface props {}
 const Lessons: React.FC<props> = (props) => {
-	return (
-		<StudyContextProvider>
-			<View style={styles.container}>
-				<CardStack />
-			</View>
-		</StudyContextProvider>
-	);
+	return <View style={styles.container}></View>;
 };
 
 export default Lessons;

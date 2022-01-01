@@ -1,6 +1,7 @@
 /** @format */
 import { GestureResponderEvent, StyleSheet } from 'react-native';
 import { TouchableOpacity, Text } from 'react-native';
+import Colors from '../../../constants/Colors';
 
 interface props {
 	onClick?: (event: GestureResponderEvent) => void;
@@ -27,7 +28,6 @@ const Button: React.FC<props> = (props) => {
 			onPress={onClick}
 			activeOpacity={0.7}
 			disabled={disabled}
-			style={styles.container}
 		>
 			<Text style={{ ...styles.button, ...colors, ...style }}>
 				{children}
@@ -39,9 +39,6 @@ const Button: React.FC<props> = (props) => {
 export default Button;
 
 const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-	},
 	button: {
 		fontSize: 20,
 		fontWeight: 'bold',
@@ -52,11 +49,11 @@ const styles = StyleSheet.create({
 		overflow: 'hidden',
 	},
 	primary: {
-		backgroundColor: '#414BB5',
+		backgroundColor: Colors.default,
 		color: 'white',
 	},
 	secondary: {
-		backgroundColor: '#CE5B5B',
+		backgroundColor: Colors.error,
 		color: 'white',
 	},
 	disabled: {

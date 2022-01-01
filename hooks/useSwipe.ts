@@ -51,12 +51,13 @@ const useSwipe = (props: props) => {
 			onPanResponderRelease: () => {
 				if (pan.x._value < -40 || pan.x._value > 40) {
 					const direction = pan.x._value > 0 ? 1 : -1;
-					Animated.spring(pan, {
+					Animated.timing(pan, {
 						toValue: {
 							x: direction*width*1.5,
-							y: pan.y._value * 4,
+							y: pan.y._value * 4
 						},
 						useNativeDriver: false,
+            duration: 300
 					}).start(() => {
 						onCorrect(studyCard);
 					});
