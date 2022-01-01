@@ -2,8 +2,8 @@
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Pressable, View } from 'react-native';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
 import Icon from '../components/UI/Icon';
+import Colors from '../constants/Colors';
 import CardStack from '../screens/CardStack';
 import BottomTabNavigator from './BottomTab';
 
