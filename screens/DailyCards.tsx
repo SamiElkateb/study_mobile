@@ -5,19 +5,24 @@ import { useContext } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import Button from '../components/UserEvents/Button';
 import StudyContext from '../store/StudyContext';
-interface props {}
-const DailyCards: React.FC<props> = (props) => {
+
+const DailyCards: React.FC= () => {
 	const studyCtx = useContext(StudyContext);
-	const { studyDeck, progress } = studyCtx;
+	const { studyDeck } = studyCtx;
 	const navigation = useNavigation();
+	const cardsRemaining = studyDeck.length;
+	const areCardsRemaining = studyDeck.length > 0;
 
 	const onStartHandler = () => {
 		navigation.navigate('Study');
 	};
 	return (
 		<View style={styles.container}>
-			<Text>{studyDeck.length}</Text>
-			<Button onClick={onStartHandler}>Start</Button>
+			<View style={styles.number_card_container}>
+				<Text style={styles.number}>{cardsRemaining}</Text>
+				<Text style={styles.text}>Cards remaining</Text>
+			</View>
+			{areCardsRemaining && <Button onClick={onStartHandler}>Start</Button>}
 		</View>
 	);
 };
@@ -29,6 +34,21 @@ const styles = StyleSheet.create({
 		flex: 1,
 		paddingVertical: 26,
 		paddingHorizontal: 32,
-		justifyContent: 'flex-end',
+		justifyContent: 'space-between',
+	},
+	number_card_container: {
+		flex: 1,
+		justifyContent: 'center',
+	},
+	number: {
+		textAlign: 'center',
+		fontSize: 60,
+		marginBottom: 20,
+	},
+	text: {
+		textAlign: 'center',
+		fontSize: 24,
+		textTransform: 'uppercase',
+		fontWeight: 'bold',
 	},
 });
