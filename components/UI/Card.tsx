@@ -1,17 +1,23 @@
 /** @format */
 
 import { View, StyleSheet } from 'react-native';
+import useCustomTheme from '../../hooks/useCustomTheme';
 interface props {
 	index?: number;
 }
 
 const Card: React.FC<props> = (props) => {
 	const { children, index = 0 } = props;
-    const shadowOpacity = 0.06-index*0.006
+	const shadowOpacity = 0.06 - index * 0.006;
+	const { themeStyle } = useCustomTheme();
 	const shadow = {
-		shadowOpacity
+		shadowOpacity,
 	};
-	return <View style={[styles.card, shadow]}>{children}</View>;
+	return (
+		<View style={[themeStyle.card, styles.card, shadow]}>
+			{children}
+		</View>
+	);
 };
 
 export default Card;
@@ -19,7 +25,6 @@ export default Card;
 const styles = StyleSheet.create({
 	card: {
 		flex: 1,
-		backgroundColor: 'white',
 		borderRadius: 24,
 		justifyContent: 'space-between',
 		shadowOffset: {

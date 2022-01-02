@@ -6,13 +6,15 @@ import StudyCard from '../components/StudyCard/StudyCard';
 import { useContext } from 'react';
 import StudyContext, { StudyContextProvider } from '../store/StudyContext';
 import ProgressBar from '../components/UI/ProgressBar';
+import useCustomTheme from '../hooks/useCustomTheme';
 
 const CardStack: React.FC = (props) => {
 	const studyCtx = useContext(StudyContext);
 	const { studyDeck, progress } = studyCtx;
+	const {themeStyle} =useCustomTheme();
 
 	return (
-		<View style={styles.container}>
+		<View style={[themeStyle.background, styles.container]}>
 			<ProgressBar progress={progress} />
 			{studyDeck.map((studyCard, index) => (
 				<StudyCard
@@ -30,6 +32,5 @@ export default CardStack;
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: '#3b45b1',
 	},
 });

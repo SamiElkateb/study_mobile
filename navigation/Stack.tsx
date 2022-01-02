@@ -1,15 +1,16 @@
 /** @format */
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Pressable, View } from 'react-native';
+import { Pressable } from 'react-native';
 import Icon from '../components/UI/Icon';
-import Colors from '../constants/Colors';
+import useCustomTheme from '../hooks/useCustomTheme';
 import CardStack from '../screens/CardStack';
 import BottomTabNavigator from './BottomTab';
 
 const Stack = createNativeStackNavigator();
 
 const StackNavigator = () => {
+	const {theme} = useCustomTheme();
 	return (
 		<Stack.Navigator>
 			<Stack.Screen
@@ -34,7 +35,7 @@ const StackNavigator = () => {
 							<Icon
 								name="flag"
 								size={'small'}
-								color={Colors['light'].tabIconDefault}
+								color={theme.tabIconDefault}
 							/>
 						</Pressable>
 					),
@@ -48,7 +49,7 @@ const StackNavigator = () => {
 							<Icon
 								name="close"
 								size={'small'}
-								color={Colors['light'].tabIconDefault}
+								color={theme.tabIconDefault}
 							/>
 						</Pressable>
 					),

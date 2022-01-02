@@ -1,9 +1,7 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import * as React from 'react';
 import Icon from '../components/UI/Icon';
-
-import Colors from '../constants/Colors';
-import useColorScheme from '../hooks/useColorScheme';
+import useCustomTheme from '../hooks/useCustomTheme';
 import DailyCards from '../screens/DailyCards';
 import Lessons from '../screens/Lessons';
 import Stats from '../screens/Stats';
@@ -12,13 +10,13 @@ import Stats from '../screens/Stats';
 const Tab = createBottomTabNavigator();
 
 const  BottomTabNavigator = () => {
-	const colorScheme = useColorScheme();
+	const {theme} = useCustomTheme()
 
 	return (
 		<Tab.Navigator
 			initialRouteName="BottomTab"
 			screenOptions={{
-				tabBarActiveTintColor: Colors[colorScheme].tint,
+				tabBarActiveTintColor: theme.primary,
 			}}
 		>
 			<Tab.Screen

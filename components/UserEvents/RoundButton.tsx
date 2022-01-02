@@ -7,7 +7,7 @@ import {
 	StyleSheet,
 } from 'react-native';
 
-import Colors from '../../constants/Colors';
+import useCustomTheme from '../../hooks/useCustomTheme';
 import { toggleButton } from '../../types';
 import Icon from '../UI/Icon';
 
@@ -38,6 +38,7 @@ const RoundButton: React.FC<props> = (props) => {
 	} = props;
 
 	const { isActive, isSwipeActive, toggleButtonHandler } = buttonHook;
+	const { theme } = useCustomTheme();
 
 	useEffect(() => {
 		isSwipeActive && startBtnFocusAnimation();
@@ -47,8 +48,12 @@ const RoundButton: React.FC<props> = (props) => {
 	const animatedRef = useRef(new Animated.Value(0)).current;
 
 	const isSecondaryBtn = styling === 'secondary';
-	const secondaryColor = isSecondaryBtn ? Colors[color] : 'rgb(255,255,255)';
-	const mainColor = isSecondaryBtn ? 'rgb(255,255,255)' : Colors[color];
+	const secondaryColor = isSecondaryBtn ? theme[color] : theme.card;
+	const mainColor = isSecondaryBtn ? theme.card : theme[color];
+	const border = {
+		borderColor: theme[color],
+		borderWidth: 2,
+	};
 
 	const backgroundColor = animatedRef.interpolate({
 		inputRange: [0, 1],
@@ -57,7 +62,6 @@ const RoundButton: React.FC<props> = (props) => {
 
 	const iconColor = isActive ? secondaryColor : mainColor;
 
-	const colors = disabled ? styles.disabled : styles[color];
 
 	const startBtnFocusAnimation = () => {
 		Animated.spring(animatedRef, {
@@ -92,7 +96,7 @@ const RoundButton: React.FC<props> = (props) => {
 			<Animated.View
 				style={[
 					styles.button,
-					colors,
+					border,
 					styles[size],
 					{ backgroundColor },
 				]}
@@ -124,23 +128,5 @@ const styles = StyleSheet.create({
 		height: 52,
 		width: 52,
 		borderRadius: 26,
-	},
-	correct: {
-		borderColor: Colors.correct,
-		borderWidth: 2,
-	},
-	error: {
-		borderColor: Colors.error,
-		borderWidth: 2,
-	},
-	default: {
-		borderColor: Colors.default,
-		borderWidth: 2,
-	},
-	disabled: {
-		borderColor: 'transparent',
-		borderWidth: 0,
-		backgroundColor: 'grey',
-		color: 'white',
-	},
+	}
 });
