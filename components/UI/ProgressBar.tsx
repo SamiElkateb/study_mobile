@@ -2,15 +2,16 @@
 
 import { useRef } from 'react';
 import { Animated, StyleSheet, View } from 'react-native';
-import Colors from '../../constants/Colors';
+import useCustomTheme from '../../hooks/useCustomTheme';
 
 interface props {
 	progress?: number;
-	color?: string;
+	color?: 'default' | 'error' | 'correct';
 }
 
 const ProgressBar: React.FC<props> = (props) => {
-	const { progress = 0, color = Colors.correct } = props;
+	const { theme } = useCustomTheme();
+	const { progress = 0, color = 'correct'} = props;
 
 	const animatedRef = useRef(new Animated.Value(0)).current;
 	
@@ -27,7 +28,7 @@ const ProgressBar: React.FC<props> = (props) => {
 
 	const progressCustomStyle = {
 		width,
-		backgroundColor: color,
+		backgroundColor: theme[color],
 	};
 
 	return (

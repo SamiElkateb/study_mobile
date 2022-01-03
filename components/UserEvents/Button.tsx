@@ -1,12 +1,13 @@
 /** @format */
 import { GestureResponderEvent, StyleSheet } from 'react-native';
 import { TouchableOpacity, Text } from 'react-native';
-import Colors from '../../constants/Colors';
+import useCustomTheme from '../../hooks/useCustomTheme';
 
 interface props {
 	onClick?: (event: GestureResponderEvent) => void;
 	disabled?: boolean;
 	styling?: 'primary' | 'secondary';
+	color?: 'default' | 'error' | 'correct';
 	style?: {};
 }
 
@@ -16,12 +17,21 @@ const Button: React.FC<props> = (props) => {
 		onClick,
 		disabled = false,
 		styling = 'primary',
+		color = 'default',
 		style = {},
 	} = props;
+	const { theme } = useCustomTheme();
 
-	let colors = styles.primary;
-	styling === 'secondary' && (colors = styles.secondary);
-	disabled && (colors = styles.disabled);
+	const isSecondaryBtn = styling === 'secondary';
+	const textColor = isSecondaryBtn ? theme[color] : theme.card;
+	const backgroundColor = isSecondaryBtn ? theme.card : theme[color];
+
+	const buttonStyle = {
+		color: textColor,
+		backgroundColor,
+		borderColor: theme[color],
+		borderWidth: 2,
+	}
 
 	return (
 		<TouchableOpacity
@@ -29,7 +39,7 @@ const Button: React.FC<props> = (props) => {
 			activeOpacity={0.7}
 			disabled={disabled}
 		>
-			<Text style={{ ...styles.button, ...colors, ...style }}>
+			<Text style={[styles.button, buttonStyle, style ]}>
 				{children}
 			</Text>
 		</TouchableOpacity>
@@ -47,14 +57,6 @@ const styles = StyleSheet.create({
 		borderRadius: 28,
 		textAlign: 'center',
 		overflow: 'hidden',
-	},
-	primary: {
-		backgroundColor: Colors.default,
-		color: 'white',
-	},
-	secondary: {
-		backgroundColor: Colors.error,
-		color: 'white',
 	},
 	disabled: {
 		backgroundColor: 'grey',
