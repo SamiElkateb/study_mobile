@@ -35,7 +35,8 @@
     "react-native-screens": "~3.10.1",
     "react-native-syntax-highlighter": "^2.1.0",
     "react-native-web": "0.17.1",
-    "react-syntax-highlighter": "^15.4.5"
+    "react-syntax-highlighter": "^15.4.5",
+    "expo-sqlite": "~10.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
