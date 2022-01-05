@@ -17,14 +17,14 @@ const Button: React.FC<props> = (props) => {
 		onClick,
 		disabled = false,
 		styling = 'primary',
-		color = 'default',
+		color = 'primary',
 		style = {},
 	} = props;
 	const { theme } = useCustomTheme();
 
 	const isSecondaryBtn = styling === 'secondary';
-	const textColor = isSecondaryBtn ? theme[color] : theme.card;
-	const backgroundColor = isSecondaryBtn ? theme.card : theme[color];
+	const textColor = isSecondaryBtn ? theme[color] : theme.background;
+	const backgroundColor = isSecondaryBtn ? 'transparent' : theme[color];
 
 	const buttonStyle = {
 		color: textColor,
