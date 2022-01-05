@@ -34,7 +34,17 @@ export type iconNames =
 	| 'flag'
 	| 'calendar'
 	| 'trophy'
-	| 'curved-flag';
+	| 'curved-flag'
+	| 'html'
+	| 'sql'
+	| 'git'
+	| 'github'
+	| 'javascript'
+	| 'typescript'
+	| 'docker'
+	| 'kubernetes'
+	| 'css'
+	| 'sass';
 export type sizes = 'large' | 'med' | 'small';
 
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
